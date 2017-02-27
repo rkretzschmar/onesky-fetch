@@ -1,6 +1,6 @@
 {
   "name": "onesky-fetch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Fetch translation files from www.oneskyapp.com working in node.js and browser apps.",
   "main": "distribution/index.js",
   "scripts": {
