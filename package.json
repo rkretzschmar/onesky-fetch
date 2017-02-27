@@ -4,7 +4,7 @@
   "description": "Fetch translation files from www.oneskyapp.com working in node.js and browser apps.",
   "main": "distribution/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "babel source --out-dir distribution"
   },
   "repository": {
@@ -23,7 +23,9 @@
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
-    "babel-preset-stage-3": "^6.22.0"
+    "babel-preset-stage-3": "^6.22.0",
+    "fetch-mock": "^5.9.4",
+    "jest": "^19.0.2"
   },
   "dependencies": {
     "md5": "^2.2.1",
