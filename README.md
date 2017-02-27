@@ -3,7 +3,7 @@ An npm package that provides you with a simple promise API, that fetches languag
 from the OneSky REST API.
 
 ## Installation
-```
+```javascript
 npm install --save onesky-fetch
 ```
 
@@ -11,7 +11,7 @@ npm install --save onesky-fetch
 
 ### Import
 
-```
+```javascript
 var OneSkyFetch = require('onesky-fetch');
 ```
 
@@ -25,7 +25,7 @@ and here:
  
 ```https://<Your OneSky URL prefix>.oneskyapp.com/admin/project/dashboard/project/<The ID of the currently open project>```
 
-```
+```javascript
 var oneSkyConfig = {
   secret: '<Your OneSky Secret Key>',
   apiKey: '<Your OneSky Public Key',
@@ -35,13 +35,13 @@ var oneSkyConfig = {
 
 ### Instantiation
 
-```
+```javascript
 var osf = OneSkyFetch(oneSkyConfig);
 ```
 
 ### Fetching Languages
 
-```
+```javascript
 osf.fetchLanguages()
   .then(function(languages) {
     console.log(languages);
@@ -72,7 +72,7 @@ osf.fetchLanguages()
 
 ### Fetching Translations
 
-```
+```javascript
 const languages = ['en','it-IT'];
 const fileName = 'strings.json';
 
@@ -97,7 +97,7 @@ osf.fetchTranslations(languages, fileName)
 
 A convenient function to fetch all translations:
 
-```
+```javascript
 const fileName = 'strings.json';
 
 osf.fetchAllTranslations(fileName)
