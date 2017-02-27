@@ -1,4 +1,4 @@
-# OneSky Fetch
+# OneSky Fetch [![Build Status](https://travis-ci.org/rkretzschmar/onesky-fetch.svg?branch=master)](https://travis-ci.org/rkretzschmar/onesky-fetch)
 An npm package that provides you with a simple promise API, that fetches languages and translations 
 from the OneSky REST API.
 
