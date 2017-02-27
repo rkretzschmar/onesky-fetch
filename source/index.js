@@ -43,7 +43,8 @@ module.exports = function (config) {
     fetchLanguages() {
       const resourcePath = `/projects/${config.projectId}/languages`;
       return oneSkyGetRequest(config, resourcePath)
-        .then(res => res.json());
+        .then(res => res.json())
+        .then(json => json.data);
     },
     fetchTranslations(languages, fileName) {
       const languages_ = (typeof languages == 'string') ? [languages] : languages;
@@ -56,13 +57,14 @@ module.exports = function (config) {
         const resourcePath = `/projects/${config.projectId}/translations`;
         return oneSkyGetRequest(config, resourcePath, params)
           .then(res => res.text())
-          .then(text => ({[language]: text}));
+          .then(text => ({language, text}));
       });
-      return Promise.all(languageFetches);
+      return Promise
+        .all(languageFetches);
     },
     fetchAllTranslations(fileName) {
       return this.fetchLanguages()
-        .then(languages => languages.data.map(language => language.code))
+        .then(languages => languages.map(language => language.code))
         .then(languages => this.fetchTranslations(languages, fileName));
     }
   };

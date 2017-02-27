@@ -51,22 +51,23 @@ osf.fetchLanguages()
 #### Output
 
 ```
-{ meta: { status: 200, record_count: 3 },
-  data: 
-   [ { code: 'it-IT',
-       english_name: 'Italian (Italy)',
-       local_name: 'Italiano (Italia)\u0000',
-       custom_locale: null,
-       locale: 'it',
-       region: 'IT',
-       is_base_language: false,
-       is_ready_to_publish: false,
-       translation_progress: '0.0%',
-       last_updated_at: '#####',
-       last_updated_at_timestamp: ##### },
-    ...
-   ]
-}
+[ 
+    { 
+        code: 'it-IT',
+        english_name: 'Italian (Italy)',
+        local_name: 'Italiano (Italia)\u0000',
+        custom_locale: null,
+        locale: 'it',
+        region: 'IT',
+        is_base_language: false,
+        is_ready_to_publish: false,
+        translation_progress: '0.0%',
+        last_updated_at: '#####',
+        last_updated_at_timestamp: ##### 
+    },
+    // other languages
+]
+
 ```
 
 
@@ -86,10 +87,8 @@ osf.fetchTranslations(languages, fileName)
 
 ```
 [
-  {
-    en: '<Your english strings>',
-    'it-IT': 'Your italian strings'
-  }
+  { language: 'en', text: '<Your english strings>' },
+  { language: 'it-IT', text: '<Your italian strings>' }
 ]
 ```
 
