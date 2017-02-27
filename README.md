@@ -3,7 +3,7 @@ An npm package that provides you with a simple promise API, that fetches languag
 from the OneSky REST API.
 
 ## Installation
-```javascript
+```
 npm install --save onesky-fetch
 ```
 
@@ -12,7 +12,11 @@ npm install --save onesky-fetch
 ### Import
 
 ```javascript
+// ES5 syntax
 var OneSkyFetch = require('onesky-fetch');
+
+// ES6 syntax
+import OneSkyFetch from 'onesky-fetch';
 ```
 
 ### Configuration
@@ -26,7 +30,8 @@ and here:
 ```https://<Your OneSky URL prefix>.oneskyapp.com/admin/project/dashboard/project/<The ID of the currently open project>```
 
 ```javascript
-var oneSkyConfig = {
+// ES6 syntax
+const oneSkyConfig = {
   secret: '<Your OneSky Secret Key>',
   apiKey: '<Your OneSky Public Key',
   projectId: '<Your OneSky project ID'
@@ -36,16 +41,30 @@ var oneSkyConfig = {
 ### Instantiation
 
 ```javascript
-var osf = OneSkyFetch(oneSkyConfig);
+// ES6 syntax
+const osf = OneSkyFetch(oneSkyConfig);
 ```
 
 ### Fetching Languages
 
 ```javascript
+// in ES5 syntax
 osf.fetchLanguages()
   .then(function(languages) {
     console.log(languages);
   });
+
+// or ES6 syntax
+osf.fetchLanguages()
+  .then(languages => {
+    console.log(languages);
+  });
+
+// or even async / await syntax
+async function test() {
+  const languages = await osf.fetchLanguages();
+  console.log(languages);
+}
 ```
 
 #### Output
@@ -67,7 +86,6 @@ osf.fetchLanguages()
     },
     // other languages
 ]
-
 ```
 
 
