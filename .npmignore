@@ -1,1 +1,4 @@
 source
+.eslintrc
+.babelrc
+.travis.yml
