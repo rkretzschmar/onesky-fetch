@@ -2,7 +2,9 @@
   "name": "onesky-fetch",
   "version": "0.0.4",
   "description": "Fetch translation files from www.oneskyapp.com working in node.js and browser apps.",
-  "main": "distribution/index.js",
+  "main": "distribution/node.index.js",
+  "browser": "distribution/browser.index.js",
+  "react-native": "distribution/browser.index.js",
   "scripts": {
     "lint": "eslint source",
     "test": "jest",

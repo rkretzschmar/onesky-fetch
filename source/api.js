@@ -1,9 +1,5 @@
 import md5 from 'md5';
 
-const fetch = (typeof window !== 'undefined' && window.fetch)
-  ? window.fetch
-  : require('./simple-fetch');
-
 const apiUrl = 'https://platform.api.onesky.io/1';
 
 function getDevHash(secret) {
@@ -26,7 +22,7 @@ function buildUrlParams(obj) {
   return str;
 }
 
-function oneSkyGetRequest(config, resourcePath, params = {}) {
+function oneSkyGetRequest(fetch, config, resourcePath, params = {}) {
   const devHash = getDevHash(config.secret);
   const urlParams = {
     api_key: config.apiKey,
@@ -37,12 +33,12 @@ function oneSkyGetRequest(config, resourcePath, params = {}) {
   return fetch(url);
 }
 
-module.exports = function (config) {
+module.exports = (fetch) => (config) => {
   return {
     config: config,
     fetchLanguages() {
       const resourcePath = `/projects/${config.projectId}/languages`;
-      return oneSkyGetRequest(config, resourcePath)
+      return oneSkyGetRequest(fetch, config, resourcePath)
         .then(res => res.json())
         .then(json => json.data);
     },
@@ -55,7 +51,7 @@ module.exports = function (config) {
           export_file_name: `${language}.json`
         };
         const resourcePath = `/projects/${config.projectId}/translations`;
-        return oneSkyGetRequest(config, resourcePath, params)
+        return oneSkyGetRequest(fetch, config, resourcePath, params)
           .then(res => res.text())
           .then(text => ({language, text}));
       });
