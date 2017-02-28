@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint source",
     "test": "jest",
-    "build": "babel source --out-dir distribution"
+    "build": "babel source --out-dir distribution --ignore __mocks__,__tests__"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
     "jest": "^19.0.2"
   },
   "dependencies": {
-    "md5": "^2.2.1",
-    "node-fetch": "^1.6.3"
+    "md5": "^2.2.1"
   }
 }

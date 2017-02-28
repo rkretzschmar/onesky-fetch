@@ -2,7 +2,7 @@ import md5 from 'md5';
 
 const fetch = (typeof window !== 'undefined' && window.fetch)
   ? window.fetch
-  : require('node-fetch');
+  : require('./simple-fetch');
 
 const apiUrl = 'https://platform.api.onesky.io/1';
 
