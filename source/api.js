@@ -39,7 +39,12 @@ module.exports = (fetch) => (config) => {
     fetchLanguages() {
       const resourcePath = `/projects/${config.projectId}/languages`;
       return oneSkyGetRequest(fetch, config, resourcePath)
-        .then(res => res.json())
+        .then(res => {
+          if (res.status > 299) {
+            throw new Error(`Error fetching languages: ${res.statusMessage}`);
+          }
+          return res.json();
+        })
         .then(json => json.data);
     },
     fetchTranslations(languages, fileName) {
@@ -52,7 +57,12 @@ module.exports = (fetch) => (config) => {
         };
         const resourcePath = `/projects/${config.projectId}/translations`;
         return oneSkyGetRequest(fetch, config, resourcePath, params)
-          .then(res => res.text())
+          .then(res => {
+            if (res.status > 299) {
+              throw new Error(`Error fetching translations: ${res.statusMessage}`);
+            }
+            return res.text();
+          })
           .then(text => ({language, text}));
       });
       return Promise
