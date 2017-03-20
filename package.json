@@ -1,6 +1,6 @@
 {
   "name": "onesky-fetch",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Fetch and upload translation files from www.oneskyapp.com working in node.js and browser apps.",
   "main": "distribution/node.index.js",
   "browser": "distribution/browser.index.js",
@@ -34,7 +34,6 @@
     "jest": "^19.0.2"
   },
   "dependencies": {
-    "form-data": "^2.1.2",
     "md5": "^2.2.1",
     "node-fetch": "^1.6.3"
   }
