@@ -22,7 +22,14 @@ function buildUrlParams(obj) {
   return str;
 }
 
-function oneSkyGetRequest(fetch, config, resourcePath, params = {}) {
+function oneSkyRequest(
+  fetch,
+  config,
+  resourcePath,
+  params = {},
+  method='GET',
+  headers=null,
+  body = null) {
   const devHash = getDevHash(config.secret);
   const urlParams = {
     api_key: config.apiKey,
@@ -30,7 +37,7 @@ function oneSkyGetRequest(fetch, config, resourcePath, params = {}) {
     ...params
   };
   const url = `${apiUrl}${resourcePath}?${buildUrlParams(urlParams)}`;
-  return fetch(url);
+  return fetch(url, {method, headers, body});
 }
 
 module.exports = (fetch) => (config) => {
@@ -38,7 +45,7 @@ module.exports = (fetch) => (config) => {
     config: config,
     fetchLanguages() {
       const resourcePath = `/projects/${config.projectId}/languages`;
-      return oneSkyGetRequest(fetch, config, resourcePath)
+      return oneSkyRequest(fetch, config, resourcePath)
         .then(res => {
           if (res.status > 299) {
             throw new Error(`Error fetching languages: ${res.statusMessage}`);
@@ -56,7 +63,7 @@ module.exports = (fetch) => (config) => {
           export_file_name: `${language}.json`
         };
         const resourcePath = `/projects/${config.projectId}/translations`;
-        return oneSkyGetRequest(fetch, config, resourcePath, params)
+        return oneSkyRequest(fetch, config, resourcePath, params)
           .then(res => {
             if (res.status > 299) {
               throw new Error(`Error fetching translations: ${res.statusMessage}`);
@@ -72,6 +79,39 @@ module.exports = (fetch) => (config) => {
       return this.fetchLanguages()
         .then(languages => languages.map(language => language.code))
         .then(languages => this.fetchTranslations(languages, fileName));
+    },
+    uploadFile(content, fileName, fileFormat, options=null) {
+      const resourcePath = `/projects/${config.projectId}/files`;
+
+      const boundary = md5(Date.now());
+
+      let multipart = `--${boundary}\n`;
+      multipart += `Content-Disposition: form-data; name="file"; filename="${fileName}"\n\n`;
+      multipart += content + '\n';
+      multipart += `--${boundary}\n`;
+      multipart += `Content-Disposition: form-data; name="file_format"\n\n`;
+      multipart += fileFormat + '\n';
+
+      if (options && (typeof options === 'object')) {
+        multipart += Object.keys(options).reduce((mp, optionKey) => {
+          mp += `--${boundary}\n`;
+          mp += `Content-Disposition: form-data; name="${optionKey}"\n\n`;
+          mp += options[optionKey] + '\n';
+          return mp;
+        }, multipart);
+      }
+
+      multipart += `--${boundary}--\n`;
+
+      return oneSkyRequest(
+        fetch,
+        config,
+        resourcePath,
+        {},
+        'POST',
+        {'Content-Type':'multipart/form-data; boundary=' + boundary},
+        multipart
+      );
     }
   };
 };
