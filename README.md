@@ -1,6 +1,5 @@
 # OneSky Fetch [![Build Status](https://travis-ci.org/rkretzschmar/onesky-fetch.svg?branch=master)](https://travis-ci.org/rkretzschmar/onesky-fetch) [![npm version](https://badge.fury.io/js/onesky-fetch.svg)](https://badge.fury.io/js/onesky-fetch)
-An npm package that provides you with a simple promise API, that fetches languages and translations 
-from the OneSky REST API.
+An npm package that provides you with a simple promise API, that fetches languages and translations from the OneSky REST API and can also upload files to it.
 
 ## Installation
 ```
@@ -126,3 +125,26 @@ osf.fetchAllTranslations(fileName)
 This is just a chain of fetching languages and fetching their translations.
 
 Feel free to contribute with additional functions.
+
+### Uploading Files
+
+That isn't really a fetch, but it may be a useful extension to the existing features.
+The `options` paramter is optional and can be used to pass additional parameters, like for example `locale` to upload specific translations - see [OneSky's API documentation](https://github.com/onesky/api-documentation-platform/blob/master/resources/file.md#upload---upload-a-file) for more information. 
+
+```javascript
+const content = '{"hello","Hallo"}';
+const fileName = 'string.json';
+const fileFormat = 'HIERARCHICAL_JSON';
+const options = {locale: 'de'};
+
+osf.uploadFile(content, fileName, fileFormat, options)
+  .then(function(result) {
+    console.log("Status Code:", result.status);
+  });
+```
+
+#### Output
+
+```
+Status Code: 201
+```

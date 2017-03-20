@@ -1,7 +1,7 @@
 import OneSkyFetch from '../node.index';
 import testConfig from '../__mocks__/test-config';
 
-jest.mock('../simple-fetch');
+jest.mock('node-fetch');
 
 describe('OneSkyFetch tests', () => {
 
